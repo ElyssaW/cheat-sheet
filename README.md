@@ -247,7 +247,7 @@ The basic interactions with the web. As an example: You can create a blog posts,
 The map for connecting web routes with CRUD actions
 
 CRUD | REST
--------------
+------|-------
 Create  | POST
 Read    | GET
 Update  | PUT
