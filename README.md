@@ -190,7 +190,9 @@ In terminal:
 Open the models folder, automatically created after running `model:create`. For clarity, we'll say we have two tables, tableOne and tableTwo. Go to the tableOne model file, and under the `static associate` line, write:
 
 - `models.tableOne.hasMany(models.tableTwo)`
+
 and then, in the tableTwo model file
+
 - `models.tableTwo.belongsTo(models.tableOne)`
 
 This is a 'one-to-many' relationship, where one table (Table One) can have many associations with it's other table (Table Two). Like a person who may have several pets. For many to many relationships:
