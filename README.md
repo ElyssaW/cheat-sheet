@@ -207,24 +207,6 @@ In your tableOne model:
 And in your tableTwo model:
 - `models.tableTwo.belongsToMany(models.tableOne, {through: ' join_table' })`
 
-## Data Scraping with Cheerio
-Data scraping can be used when an API is not available, or does not provide the wanted information. It does require a bit of setup, however.
-
-- `npm i cheerio`
-
-In you Javascript:
-- `const cheerio = require('cheerio)`
-
-Create an Axios call (Or any other web call). Inside the `axios.get()` callback, write:
-
-- `let $ = cheerio.load(res.data)`
-
-Then
-
-- `let result = $('[element to search in, by class or id]').find('[element to search]')`
-
-Getting any use out of data scraped info may require string manipulation, or other "hacky" ways.
-
 ## Vocabulary
 
 - MVC: Model Views Controller
