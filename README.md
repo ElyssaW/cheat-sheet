@@ -204,3 +204,56 @@ In your tableOne model:
 
 And in your tableTwo model:
 - `models.tableTwo.belongsToMany(models.tableOne, {through: ' join_table' })`
+
+## Data Scraping with Cheerio
+Data scraping can be used when an API is not available, or does not provide the wanted information. It does require a bit of setup, however.
+
+- `npm i cheerio`
+
+In you Javascript:
+- `const cheerio = require('cheerio)`
+
+Create an Axios call (Or any other web call). Inside the `axios.get()` callback, write:
+
+- `let $ = cheerio.load(res.data)`
+
+Then
+
+- `let result = $('[element to search in, by class or id]').find('[element to search]')`
+
+Getting any use out of data scraped info may require string manipulation, or other "hacky" ways.
+
+## Vocabulary
+
+- MVC: Model Views Controller
+A term for all the components of the "full stack." Models is the database, views is the user-facing interface, and controllers talk between the two.
+
+- ORM: Object Relational Mapper
+Database models such as SQL. So named because they keep track of data tables - the objects - and their relationships to eachother.
+
+- ERM: Entity Relationship Model
+The organizational method and visual representation used to keep track of data tables and how they relate to eachother. Useful for 1:M (One to many) and N:M (Many to many) relationship models
+
+- JSON: JavaScript Object Notation
+A way of structuring data so it can be easily parsed by Javascript
+
+- API: Application Programming Interface
+The intermediary between two pieces of software that allows them to talk to eachother. For Javascript, it's best to receive API calls as JSON objects, which can then be parsed into a Javascript object
+
+- CRUD: Create, Read, Update, Destroy
+The basic interactions with the web. As an example: You can create a blog posts, read the blog posts of others, update your own, or delete your whole blog.
+
+- REST: Representational State Transfer
+The map for connecting web routes with CRUD actions
+
+-------------
+Create  | POST
+-------------
+Read    | GET
+-------------
+Update  | PUT
+-------------
+Destroy | Delete
+-------------
+
+Only GET pages should display to the user. All other routes should manipulate information - either by creating, updating, or deleting it - and then redirect to a GET route.
