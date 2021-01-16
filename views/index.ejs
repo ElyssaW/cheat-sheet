@@ -1,0 +1,22 @@
+<h1>Example</h1>
+
+<ul>
+    <% things.forEach((element, i) => { %>
+       <li>
+        <% i = i + 1 %>
+           <%= i %>. <%= element.info %>
+
+           <form action="/example/edit/<%= i %>" method="GET">
+                <input type="submit" value="Edit Thing">
+            </form>
+
+            <form action="/example/delete/<%= i %>?_method=DELETE" method="POST">
+                <input type="submit" value="Delete Thing">
+            </form>
+        </li>
+    <% }) %>
+</ul>
+
+<form action="/example/new" method="GET">
+    <input type="submit" value="Add New Thing">
+</form>

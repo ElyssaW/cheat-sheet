@@ -177,6 +177,8 @@ Sequelize allows us to talk to a SQL database with Javascript commands. To start
 
 - `npm i sequelize pg`
 
+- `sequelize init`
+
 - Open the config.json. Change `mySQL` to `postgres`. Change the databasename, and set the username and password (Ignore if on a Mac)
 
 In terminal:
@@ -248,7 +250,7 @@ The map for connecting web routes with CRUD actions
 
 CRUD | REST
 ------|-------
-Create  | POST
+Create  | POST 
 Read    | GET
 Update  | PUT
 Destroy | Delete
