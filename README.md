@@ -72,6 +72,22 @@ In your index.js Javascript:
 
 - `app.delete('/', (req, res) => { [action] })` to delete information from the connected database. Like `.put`, this can also receive information from the user (The ID of an item to be deleted, for example) and should end in a redirect. 
 
+### Render/Redirect commands
+In your routes, you have to define what the user will see when they navigate to that route. Here are some useful commands for it:
+
+- `res.send([info])` to print raw, unstyled text to the page
+
+- `res.sendFile([filepath])` to send an HTML file
+
+- `res.render([filepath])` to render an ejs file
+
+- `res.redirect([route url])` to send to another route
+
+### Sending information along routes
+Maybe you want to send information along a route to display on the view page. 
+
+- `res.render('[URL]', { variableName: variable })` inside of the route. The object will contain all information you want to send along, accessed by the variable name. You can define multiple fields as you would multiple items in an object
+
 ### Using forms in Express
 
 So you want to send information across your HTML pages? Easy to do! Here's how. In your HTML/EJS:
@@ -97,14 +113,14 @@ To use `app.delete`, you need to use the method-override functionality. To do th
 
 - `app.use(methodOverride('_method'))` to tell your Express app to use it whenever it encounters a request URL with "_method" in it
 
-#### Controllers
+### Controllers
 The last major piece of Express are the controllers. Controllers are purely for organizational purposes, they have no user-facing functionality, but they help with keeping large projects clean. To start with controllers:
 
 - `mkdir controllers` in your project folder
 
 - `touch [controller name].js` to create the JavaScript containing all the routes that are relevant to eachother, organizationally
 
-- `const express = require('express')` at the top of your controller file. You also have to import any other modules you use directly in your route code.
+- `const express = require('express')` at the top of your controller file. You also have to import any other modules you use directly in your route code, such as Axios if your routes involve an Axios call.
 
 - `const router = express.Router()` at the top to define the router object
 
@@ -116,3 +132,73 @@ Lastly, import the controller into your index.js:
 - Return to your index.js
 
 - `app.use('/[controller name], require('[controller file path]'))`
+
+## EJS
+EJS, or embedded javascript, allows you to alter the look of your HTML based on JavaScript, and create partials so that you aren't constantly repeating your HTML. To get started, go to terminal:
+
+- `npm i ejs express-ejs-layouts`
+
+In your index.js
+- `const layouts = require('express-ejs-layouts')`
+
+- `app.set('view engine', 'ejs')`
+
+- `app.use(ejsLayouts)`
+
+Remember, all HTML files have to be saved as .ejs to be used with it.
+
+#### EJS syntax
+To use the Javascript in your EJS files, you have to use "alligators." Here's how they work
+
+- `<% [code] %>` for basic Javascript code
+
+- `<%= [variable name] %>` if you want to print a javascript variable. (Note: It prints the variable in the HTML, but if you put somewhere that's not usually visible to the user - inside of an HTML attribute, for instance - it will not show up)
+
+- `<%- [partial name] %>` to use a partial or put body in the layout
+
+## Axios
+Axios is useful for pulling in information from other websites, such as an API. In terminal:
+
+- `npm i axios`
+
+In your index.js
+- `const axios = require('axios')`
+
+To make calls
+- `axios.get([URL])`
+
+followed by
+- `.then(response => { [action] })`
+
+Remember, Axios calls take a while to run (In computer minutes, at least) and Javascript runs asynchorously - meaning, it will continue running code before all code has been resolved. Normally, this is fine. In the case of Axios or SQL calls, it means your code will execute before information it needs has returned. The `.then()` is vital for avoiding this, since it forces the Javascript to process only when the call is resolved.
+
+## Sequelize
+Sequelize allows us to talk to a SQL database with Javascript commands. To start:
+
+- `npm i sequelize pg`
+
+- Open the config.json. Change `mySQL` to `postgres`. Change the databasename, and set the username and password (Ignore if on a Mac)
+
+In terminal:
+- `sequelize db:create` on Windows.
+
+- `sequelize model:create --name [name] --attributes [variable]:[variable type],[variable two]:[variable 2 type]` etc.
+
+- `sequelize db:migrate` on Windows
+
+### Associations
+Open the models folder, automatically created after running `model:create`. For clarity, we'll say we have two tables, tableOne and tableTwo. Go to the tableOne model file, and under the `static associate` line, write:
+
+- `models.tableOne.hasMany(models.tableTwo)`
+and then, in the tableTwo model file
+- `models.tableTwo.belongsTo(models.tableOne)`
+
+This is a 'one-to-many' relationship, where one table (Table One) can have many associations with it's other table (Table Two). Like a person who may have several pets. For many to many relationships:
+
+- `sequelize model:create --name join_table --attributes tableOneID:integer,tableTwoID:integer`
+
+In your tableOne model:
+- `models.tableOne.belongsToMany(models.tableTwo, {through: ' join_table' })`
+
+And in your tableTwo model:
+- `models.tableTwo.belongsToMany(models.tableOne, {through: ' join_table' })`
