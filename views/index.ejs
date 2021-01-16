@@ -3,14 +3,13 @@
 <ul>
     <% things.forEach((element, i) => { %>
        <li>
-        <% i = i + 1 %>
-           <%= i %>. <%= element.info %>
+           <%= element.id %>. <%= element.info %>
 
-           <form action="/example/edit/<%= i %>" method="GET">
+           <form action="/example/edit/<%= element.id %>" method="GET">
                 <input type="submit" value="Edit Thing">
             </form>
 
-            <form action="/example/delete/<%= i %>?_method=DELETE" method="POST">
+            <form action="/example/delete/<%= element.id %>?_method=DELETE" method="POST">
                 <input type="submit" value="Delete Thing">
             </form>
         </li>

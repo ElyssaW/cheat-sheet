@@ -59,10 +59,12 @@ router.get('/edit/:id', (req, res) => {
 
 //Delete things from the page
 router.delete('/delete/:id', (req, res) => {
+    console.log('_____________________Hit the delete route___________________')
     db.tableOne.destroy({
         where: { id: req.params.id }
       }).then((numRowsDeleted) => {
-        res.redirect('/example/')
+        console.log(numRowsDeleted)
+        res.redirect('/example')
       })
 })
 
