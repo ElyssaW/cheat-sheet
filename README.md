@@ -32,7 +32,7 @@ All done!
 
 All done!
 
-## Basic Git commands
+### Basic Git commands
 
 - `git add .` to select files to commit to Git
 
