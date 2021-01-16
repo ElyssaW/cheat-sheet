@@ -246,14 +246,11 @@ The basic interactions with the web. As an example: You can create a blog posts,
 - REST: Representational State Transfer
 The map for connecting web routes with CRUD actions
 
+CRUD | REST
 -------------
 Create  | POST
--------------
 Read    | GET
--------------
 Update  | PUT
--------------
 Destroy | Delete
--------------
 
 Only GET pages should display to the user. All other routes should manipulate information - either by creating, updating, or deleting it - and then redirect to a GET route.
