@@ -63,3 +63,56 @@ In your index.js Javascript:
 - `let app = express()` beneath it, to create a new instance of Express, which you will use as your server
 
 - `app.listen([port number])` to tell the server where to listen for incoming requests. Write `app.liste([port number] => {console.log("Message")})` If you want JavaScript to console log whenever it connects to the server, so that you know it's working
+
+### Basic Express commands
+
+- `app.get('/', (req, res) => { [action] })` to send information to the client based on which URL they access. Replace `/` with the desired URL (Minus the `localhost:3000`). 
+
+- `app.put('/', (req, res) => { [action] })` to receive information from the user, usually input with a form. `.put` requests shouldn't show anything to the user, and should end in a redirect to a `.get` route
+
+- `app.delete('/', (req, res) => { [action] })` to delete information from the connected database. Like `.put`, this can also receive information from the user (The ID of an item to be deleted, for example) and should end in a redirect. 
+
+### Using forms in Express
+
+So you want to send information across your HTML pages? Easy to do! Here's how. In your HTML/EJS:
+
+- `<form action="[route url]" method="GET/POST"> </form>` to create the form which will direct the user to your desired route URL when they click submit
+
+Inside of the form tags, put:
+- `<input type=[desired input type] name=[variable name] value=[desired value]` This will let the user input a value - overriding the value you defined, if you allow it - and when they hit submit, that value will be sent to the form's route URL under the `name` variable name you defined here
+
+#### Body Parser
+
+To access those variables, you need a body parser: `app.use(express.urlencoded({ extended: false }))` in the middleware section of your index.js. Then, in the route you directed the user to in the form, you can access it with:
+
+- `req.body.[variable name]`
+
+#### Method-Override
+
+To use `app.delete`, you need to use the method-override functionality. To do this, you need:
+
+- `npm i method-override` in terminal
+
+- `const methodOverride = require('method-override')` in your index.js.
+
+- `app.use(methodOverride('_method'))` to tell your Express app to use it whenever it encounters a request URL with "_method" in it
+
+#### Controllers
+The last major piece of Express are the controllers. Controllers are purely for organizational purposes, they have no user-facing functionality, but they help with keeping large projects clean. To start with controllers:
+
+- `mkdir controllers` in your project folder
+
+- `touch [controller name].js` to create the JavaScript containing all the routes that are relevant to eachother, organizationally
+
+- `const express = require('express')` at the top of your controller file. You also have to import any other modules you use directly in your route code.
+
+- `const router = express.Router()` at the top to define the router object
+
+- `module.exports = router` at the bottom to export your router object to your index.js file
+
+- Import all relevant routes to the controller file, changing `app.[method]` to `router.[method]` and removing the name of the controller from the url. So if your route url was previousy `app.get('controller/show')` it will now be `router.get('/show)`
+
+Lastly, import the controller into your index.js:
+- Return to your index.js
+
+- `app.use('/[controller name], require('[controller file path]'))`
