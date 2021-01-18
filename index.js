@@ -13,6 +13,11 @@ let app = express()
 //Set the view engine to ejs
 app.set('view engine', 'ejs')
 
+//This allows the Javascript to access locally-stored photos, so long as they're in the
+// "public" folder. It also allows access to CSS
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'public')))
+
 //Set method override
 app.use(methodOverride('_method'))
 
@@ -24,7 +29,7 @@ app.use('/example', require('./controllers/example'))
 
 //Basic route to navigate to homepage
 app.get('/', (req, res) => {
-    res.send('Hello from port 3000!')
+    res.render('home.ejs')
 })
 
 //Set express to listen to the port

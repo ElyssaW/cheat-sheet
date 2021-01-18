@@ -22,8 +22,6 @@ A web app cheat-sheet for lazy developers
 
 - `push -u origin main`
 
-All done!
-
 ### If cloning an existing repo
 
 - `cd` into your folder of choice (Do not make the project folder)
@@ -62,13 +60,15 @@ In your index.js Javascript:
 
 - `let app = express()` beneath it, to create a new instance of Express, which you will use as your server
 
-- `app.listen([port number])` to tell the server where to listen for incoming requests. Write `app.liste([port number] => {console.log("Message")})` If you want JavaScript to console log whenever it connects to the server, so that you know it's working
+- `app.listen([port number])` to tell the server where to listen for incoming requests. Write `app.listen([port number] => {console.log("Message")})` If you want JavaScript to console log whenever it connects to the server, so that you know it's working
 
 ### Basic Express commands
 
 - `app.get('/', (req, res) => { [action] })` to send information to the client based on which URL they access. Replace `/` with the desired URL (Minus the `localhost:3000`). 
 
-- `app.put('/', (req, res) => { [action] })` to receive information from the user, usually input with a form. `.put` requests shouldn't show anything to the user, and should end in a redirect to a `.get` route
+- `app.post('/', (req, res) => { [action] })` to receive information from the user, usually input with a form, and write a new entry to the database. `.put` requests shouldn't show anything to the user, and should end in a redirect to a `.get` route
+
+- `app.put('/', (req, res) => { [action] })` to update an existing database entry
 
 - `app.delete('/', (req, res) => { [action] })` to delete information from the connected database. Like `.put`, this can also receive information from the user (The ID of an item to be deleted, for example) and should end in a redirect. 
 
@@ -90,7 +90,7 @@ Maybe you want to send information along a route to display on the view page.
 
 ### Using forms in Express
 
-So you want to send information across your HTML pages? Easy to do! Here's how. In your HTML/EJS:
+So you want to send information across your HTML pages? Here's how. In your HTML/EJS:
 
 - `<form action="[route url]" method="GET/POST"> </form>` to create the form which will direct the user to your desired route URL when they click submit
 
@@ -126,7 +126,7 @@ The last major piece of Express are the controllers. Controllers are purely for 
 
 - `module.exports = router` at the bottom to export your router object to your index.js file
 
-- Import all relevant routes to the controller file, changing `app.[method]` to `router.[method]` and removing the name of the controller from the url. So if your route url was previousy `app.get('controller/show')` it will now be `router.get('/show)`
+- Import all relevant routes to the controller file, changing `app.[method]` to `router.[method]` and removing the name of the controller from the url. So if your route url was previousy `app.get('controller/show')` it will now be `router.get('/show')`
 
 Lastly, import the controller into your index.js:
 - Return to your index.js
@@ -152,7 +152,7 @@ To use the Javascript in your EJS files, you have to use "alligators." Here's ho
 
 - `<% [code] %>` for basic Javascript code
 
-- `<%= [variable name] %>` if you want to print a javascript variable. (Note: It prints the variable in the HTML, but if you put somewhere that's not usually visible to the user - inside of an HTML attribute, for instance - it will not show up)
+- `<%= [variable name] %>` if you want to print a javascript variable. (Note: It prints the variable in the HTML, but if you put somewhere that's not usually visible to the user - inside of an HTML attribute, for instance - it will not show up to user, but will be read by the computer as if it were written in HTML)
 
 - `<%- [partial name] %>` to use a partial or put body in the layout
 
@@ -170,7 +170,7 @@ To make calls
 followed by
 - `.then(response => { [action] })`
 
-Remember, Axios calls take a while to run (In computer minutes, at least) and Javascript runs asynchorously - meaning, it will continue running code before all code has been resolved. Normally, this is fine. In the case of Axios or SQL calls, it means your code will execute before information it needs has returned. The `.then()` is vital for avoiding this, since it forces the Javascript to process only when the call is resolved.
+Remember, Axios calls take a while to run (In computer minutes, at least) and Javascript runs synchorously - meaning, it will continue running code before all code has been resolved. Normally, this is fine. In the case of Axios or SQL calls, it means your code will execute before the information it needs has returned. The `.then()` is vital for avoiding this, since it forces the Javascript to wait until the call is resolved.
 
 ## Sequelize
 Sequelize allows us to talk to a SQL database with Javascript commands. To start:
@@ -207,6 +207,8 @@ In your tableOne model:
 And in your tableTwo model:
 - `models.tableTwo.belongsToMany(models.tableOne, {through: ' join_table' })`
 
+As a note, "tableOne" and "tableTwo" turned out to be fairly terrible table names. I had to write their names in quotations whenever I wanted to reference them directly in SQL, or SQL wouldn't properly register them. Pick something descriptive for your tables! And also not camel-cased.
+
 ## Vocabulary
 
 - MVC: Model Views Controller
@@ -235,6 +237,6 @@ CRUD | REST
 Create  | POST 
 Read    | GET
 Update  | PUT
-Destroy | Delete
+Destroy | DELETE
 
 Only GET pages should display to the user. All other routes should manipulate information - either by creating, updating, or deleting it - and then redirect to a GET route.
