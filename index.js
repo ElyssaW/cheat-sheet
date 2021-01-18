@@ -12,6 +12,7 @@ let app = express()
 
 //Set the view engine to ejs
 app.set('view engine', 'ejs')
+app.use(layouts)
 
 //This allows the Javascript to access locally-stored photos, so long as they're in the
 // "public" folder. It also allows access to CSS
