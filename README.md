@@ -212,24 +212,31 @@ As a note, "tableOne" and "tableTwo" turned out to be fairly terrible table name
 ## Vocabulary
 
 - MVC: Model Views Controller
+
 A term for all the components of the "full stack." Models is the database, views is the user-facing interface, and controllers talk between the two.
 
 - ORM: Object Relational Mapper
+
 Database models such as SQL. So named because they keep track of data tables - the objects - and their relationships to eachother.
 
 - ERM: Entity Relationship Model
+
 The organizational method and visual representation used to keep track of data tables and how they relate to eachother. Useful for 1:M (One to many) and N:M (Many to many) relationship models
 
 - JSON: JavaScript Object Notation
+
 A way of structuring data so it can be easily parsed by Javascript
 
 - API: Application Programming Interface
+
 The intermediary between two pieces of software that allows them to talk to eachother. For Javascript, it's best to receive API calls as JSON objects, which can then be parsed into a Javascript object
 
 - CRUD: Create, Read, Update, Destroy
+
 The basic interactions with the web. As an example: You can create a blog posts, read the blog posts of others, update your own, or delete your whole blog.
 
 - REST: Representational State Transfer
+
 The map for connecting web routes with CRUD actions
 
 CRUD | REST
