@@ -60,7 +60,7 @@ In your index.js Javascript:
 
 - `let app = express()` beneath it, to create a new instance of Express, which you will use as your server
 
-- `app.listen([port number])` to tell the server where to listen for incoming requests. Write `app.listen([port number] => {console.log("Message")})` If you want JavaScript to console log whenever it connects to the server, so that you know it's working
+- `app.listen([port number])` to tell the server where to listen for incoming requests. Write `app.listen([port number], () => {console.log("Message")})` If you want JavaScript to console log whenever it connects to the server, so that you know it's working
 
 ### Basic Express commands
 
