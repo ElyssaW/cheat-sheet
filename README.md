@@ -105,7 +105,7 @@ To access those variables, you need a body parser: `app.use(express.urlencoded({
 
 #### Method-Override
 
-To use `app.delete`, you need to use the method-override functionality. To do this, you need:
+To use `app.delete` or `app.put`, you need to use the method-override functionality. To do this, you need:
 
 - `npm i method-override` in terminal
 
