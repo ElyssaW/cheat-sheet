@@ -215,11 +215,11 @@ As a note, "tableOne" and "tableTwo" turned out to be fairly terrible table name
 
 A term for all the components of the "full stack." Models is the database, views is the user-facing interface, and controllers talk between the two.
 
-- ORM: Object Relational Mapper
+- ORM: Object Relational Mapping
 
-Database models such as SQL. So named because they keep track of data tables - the objects - and their relationships to eachother.
+A programming technique for converting data between incompatible type systems using object-oriented programming languages
 
-- ERM: Entity Relationship Model
+- ERD: Entity Relationship Diagram
 
 The organizational method and visual representation used to keep track of data tables and how they relate to eachother. Useful for 1:M (One to many) and N:M (Many to many) relationship models
 
